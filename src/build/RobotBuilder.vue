@@ -2,31 +2,31 @@
   <div>
     <div class="top-row">
       <div class="top part">
-        <img :src="avaliableParts.heads[selectedHeadIndex].src" title="head"/>
+        <img :src="selectedRobot.head.src" title="head"/>
         <button @click="selectPreviousHead()" class="prev-selector">&#9668;</button>
         <button @click="selectNextHead()" class="next-selector">&#9658;</button>
       </div>
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img v-bind:src="avaliableParts.arms[0].src" title="arms"/>
+        <img :src="selectedRobot.leftArm.src" title="arms"/>
         <button class="prev-selector">&#9650;</button>
         <button class="next-selector">&#9660;</button>
       </div>
       <div class="center part">
-        <img v-bind:src="avaliableParts.torsos[0].src" title="torsos"/>
+        <img :src="selectedRobot.torso.src" title="torsos"/>
         <button class="prev-selector">&#9668;</button>
         <button class="next-selector">&#9658;</button>
       </div>
       <div class="right part">
-        <img v-bind:src="avaliableParts.arms[0].src" title="arms"/>
+        <img :src="selectedRobot.rightArm.src" title="arms"/>
         <button class="prev-selector">&#9650;</button>
         <button class="next-selector">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img v-bind:src="avaliableParts.bases[0].src" title="left arm"/>
+        <img :src="selectedRobot.base.src" title="left arm"/>
         <button class="prev-selector">&#9668;</button>
         <button class="next-selector">&#9658;</button>
       </div>
@@ -52,7 +52,22 @@ export default {
     return {
       avaliableParts,
       selectedHeadIndex: 0,
+      selectedLeftArmIndex: 0,
+      selectedTorsoIndex: 0,
+      selectedRightArmIndex: 0,
+      selectedBaseIndex: 0,
     };
+  },
+  computed: {
+    selectedRobot() {
+      return {
+        head: avaliableParts.heads[this.selectedHeadIndex],
+        leftArm: avaliableParts.arms[this.selectedLeftArmIndex],
+        torso: avaliableParts.torsos[this.selectedTorsoIndex],
+        rightArm: avaliableParts.torsos[this.selectedRightArmIndex],
+        base: avaliableParts.torsos[this.selectedBaseIndex],
+      };
+    },
   },
   methods: {
     selectNextHead() {
