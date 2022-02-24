@@ -60,7 +60,7 @@
 
 <script>
 import avaliableParts from '../data/parts';
-import createdHookMixin from './createdHookMixin';
+import createdHookMixin from './created-hook-mixin';
 
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
