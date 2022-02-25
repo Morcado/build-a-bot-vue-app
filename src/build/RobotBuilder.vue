@@ -1,30 +1,50 @@
 <template>
   <div class="content">
-    <button class="add-cart" @click="addToCart()">
-      Add to cart
-    </button>
+    <div class="preview">
+      <div class="preview-content">
+        <div class="top-row">
+          <img :src="selectedRobot.head.src"/>
+        </div>
+        <div class="middle-row">
+          <img :src="selectedRobot.leftArm.src" class="rotate-left"/>
+          <img :src="selectedRobot.torso.src"/>
+          <img :src="selectedRobot.rightArm.src" class="rotate-right"/>
+        </div>
+        <div class="bottom-row">
+          <img :src="selectedRobot.base.src"/>
+        </div>
+      </div>
+      <button class="add-to-cart" @click="addToCart()">
+        Add to cart
+      </button>
+    </div>
     <div class="top-row">
       <!-- <div :class="[saleBorderClass, 'top', 'part']"> -->
       <!-- </div> -->
       <PartSelector
         :parts="avaliableParts.heads"
-        position="top"/>
+        position="top"
+        @partSelected="part => selectedRobot.head = part"/>
     </div>
     <div class="middle-row">
       <PartSelector
         :parts="avaliableParts.arms"
-        position="left"/>
+        position="left"
+        @partSelected="part => selectedRobot.leftArm = part"/>
       <PartSelector
         :parts="avaliableParts.torsos"
-        position="center"/>
+        position="center"
+        @partSelected="part => selectedRobot.torso = part"/>
       <PartSelector
         :parts="avaliableParts.arms"
-        position="right"/>
+        position="right"
+        @partSelected="part => selectedRobot.rightArm = part"/>
     </div>
     <div class="bottom-row">
       <PartSelector
         :parts="avaliableParts.bases"
-        position="bottom"/>
+        position="bottom"
+        @partSelected="part => selectedRobot.base = part"/>
     </div>
     <div>
       <h2>Cart</h2>
@@ -72,23 +92,23 @@ export default {
   },
   mixins: [createdHookMixin],
   computed: {
-    // saleBorderClass() {
-    //   return this.selectedRobot.head.onSale ? 'sale-border' : '';
-    // },
-    // headBorderStyle() {
-    //   return {
-    //     border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid gray',
-    //   };
-    // },
+    saleBorderClass() {
+      return this.selectedRobot.head.onSale ? 'sale-border' : '';
+    },
+    headBorderStyle() {
+      return {
+        border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid gray',
+      };
+    },
   },
   methods: {
-    // addToCart() {
-    //   const robot = this.selectedRobot;
-    //   const cost = robot.head.cost + robot.leftArm.cost +
-    //     robot.torso.cost + robot.rightArm.cost + robot.base.cost;
-    //   // no copiar la instancia Object.assign({}, robot, { cost })
-    //   this.cart.push({ ...robot, cost });
-    // },
+    addToCart() {
+      const robot = this.selectedRobot;
+      const cost = robot.head.cost + robot.leftArm.cost +
+        robot.torso.cost + robot.rightArm.cost + robot.base.cost;
+      // no copiar la instancia Object.assign({}, robot, { cost })
+      this.cart.push({ ...robot, cost });
+    },
   },
 };
 
@@ -200,8 +220,7 @@ export default {
 
 .add-to-cart {
   position: absolute;
-  right: 30px;
-  width: 220px;
+  width: 210px;
   padding: 3px;
   font-size: 16px;
 }
@@ -217,5 +236,26 @@ td, th {
 }
 .sale-border {
   border: 3px solid red;
+}
+.preview {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  width: 210px;
+  height: 210px;
+  padding: 5px;
+}
+.preview-content {
+  border: 1px solid #999;
+}
+.preview img {
+  width: 50px;
+  height: 50px;
+}
+.rotate-right {
+  transform: rotate(90deg);
+}
+.rotate-left {
+  transform: rotate(-90deg);
 }
 </style>
