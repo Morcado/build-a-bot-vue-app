@@ -35,10 +35,10 @@ export default {
       required: true,
     },
     position: {
-      type: Number,
+      type: String,
       required: true,
       validator(value) {
-        return ['left', 'right', 'top', 'center', 'bottom '].includes(value);
+        return ['left', 'right', 'top', 'center', 'bottom'].includes(value);
       },
     },
   },
