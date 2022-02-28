@@ -80,6 +80,16 @@ import CollapsibleSection from '../shared/CollapsibleSection.vue';
 
 export default {
   name: 'RobotBuilder',
+  beforeRouteLeave(to, from, next) {
+    if (this.addedToCart) {
+      next(true);
+    } else {
+      // eslint-disable-next-line no-alert
+      // eslint-disable-next-line no-restricted-globals
+      const response = confirm('You have not added any robot to your cart, are you sure you want to leave?');
+      next(response);
+    }
+  },
   components: {
     CollapsibleSection,
     PartSelector,
@@ -115,6 +125,7 @@ export default {
         robot.torso.cost + robot.rightArm.cost + robot.base.cost;
       // no copiar la instancia Object.assign({}, robot, { cost })
       this.cart.push({ ...robot, cost });
+      this.addedToCart = true;
     },
   },
 };
