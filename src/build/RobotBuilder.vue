@@ -97,6 +97,7 @@ export default {
   data() {
     return {
       avaliableParts,
+      addedToCart: false,
       cart: [],
       selectedRobot: {
         head: {},
@@ -124,7 +125,8 @@ export default {
       const cost = robot.head.cost + robot.leftArm.cost +
         robot.torso.cost + robot.rightArm.cost + robot.base.cost;
       // no copiar la instancia Object.assign({}, robot, { cost })
-      this.cart.push({ ...robot, cost });
+
+      this.$store.commit('addRobotToCart', { ...robot, cost });
       this.addedToCart = true;
     },
   },
