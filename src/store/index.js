@@ -20,6 +20,12 @@ export default createStore({
         .then((result) => commit('updateParts', result.data))
         .catch(console.error);
     },
+    addRobotToCart({ commit, state }, robot) {
+      const cart = [...state.cart, robot];
+      return axios.put('/api/cart', cart)
+        .then(() => commit('addRobotToCart'))
+        .catch(console.error);
+    },
   },
   getters: {
     cartSaleItems(state) {
