@@ -112,7 +112,7 @@ export default {
   mixins: [createdHookMixin],
   computed: {
     avaliableParts() {
-      return this.$store.state.parts;
+      return this.$store.state.robots.parts;
     },
     saleBorderClass() {
       return this.selectedRobot.head.onSale ? 'sale-border' : '';
@@ -126,8 +126,12 @@ export default {
   methods: {
     addToCart() {
       const robot = this.selectedRobot;
-      const cost = robot.head.cost + robot.leftArm.cost +
-        robot.torso.cost + robot.rightArm.cost + robot.base.cost;
+      const cost =
+        robot.head.cost +
+        robot.leftArm.cost +
+        robot.torso.cost +
+        robot.rightArm.cost +
+        robot.base.cost;
       // no copiar la instancia Object.assign({}, robot, { cost })
 
       this.$store.dispatch('addRobotToCart', { ...robot, cost })
