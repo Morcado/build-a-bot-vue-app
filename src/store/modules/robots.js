@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export default {
+  namespaced: true,
   state: {
     cart: [], // agregar default
     parts: null,
@@ -29,7 +30,7 @@ export default {
   getters: {
     cartSaleItems(state) {
       console.log(state);
-      return state.cart.filter((item) => item.head.onSale);
+      return state.cart;
     },
   },
 };

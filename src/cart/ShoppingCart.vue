@@ -12,8 +12,8 @@
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="(robot, index) in cartSaleItems" :key="index">
+      <tbody v-if="cart">
+        <tr v-for="(robot, index) in cart" :key="index">
           <td class="robot-title">
             {{robot.head.title}}
           </td>
@@ -35,8 +35,8 @@
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="(robot, index) in cart" :key="index">
+      <tbody v-if="cartSaleItems">
+        <tr v-for="(robot, index) in cartSaleItems" :key="index">
           <td class="robot-title">
             {{robot.head.title}}
           </td>
@@ -50,15 +50,13 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
+
 export default {
   name: 'Cart',
   computed: {
-    cart() {
-      return this.$store.state.robots.cart;
-    },
-    cartSaleItems() {
-      return this.$store.getters.cartSaleItems;
-    },
+    ...mapState('robots', 'cart'),
+    ...mapGetters('robots', ['cartSaleItems']),
   },
 };
 </script>
