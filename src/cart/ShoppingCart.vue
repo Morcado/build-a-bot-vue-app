@@ -55,7 +55,7 @@ import { mapGetters, mapState } from 'vuex';
 export default {
   name: 'Cart',
   computed: {
-    ...mapState('robots', 'cart'),
+    ...mapState('robots', ['cart']),
     ...mapGetters('robots', ['cartSaleItems']),
   },
 };

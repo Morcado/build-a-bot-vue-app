@@ -95,7 +95,9 @@ export default {
   },
   mixins: [createdHookMixin],
   computed: {
-    ...mapState('robots', { avaliableParts: 'parts' }),
+    ...mapState('robots', {
+      avaliableParts: 'parts',
+    }),
     saleBorderClass() {
       return this.selectedRobot.head.onSale ? 'sale-border' : '';
     },
